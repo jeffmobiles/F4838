@@ -12,7 +12,7 @@ import sys #only needed to determine Python version number
 import matplotlib #only needed to determine Matplotlib version number
 import os
 
-folder = "E:\\Cloud\\finance\\lianghua\\F4838\\data\\sh601113\\"
+folder = "E:\\python\\F4838\\data\\all_temp\\"
 filelist = os.listdir(folder)
 print(filelist)
 

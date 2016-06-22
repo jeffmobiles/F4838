@@ -6,7 +6,7 @@ import datetime
 import os
 from time import sleep,ctime
 from html import parser
-
+import queue  
 # 历史信息
 #
 #http://table.finance.yahoo.com/table.csv?s=600000.ss    
@@ -91,7 +91,7 @@ def downloads_daily(codeList,save_url,load_url,date_from,date_to,folder):
     d = 0;
     for code in codeList:
         print(code)
-        print(folder)
+        #print(folder)
         while d < deld.days+1:
             ddeld = datetime.timedelta(days=d)
             one_day = d1 + ddeld
@@ -100,8 +100,8 @@ def downloads_daily(codeList,save_url,load_url,date_from,date_to,folder):
             file_url = save_url.replace("#c#",code).replace("#d#",code_date)
             local_folder = folder.replace("#c#",code)
             is_folder = os.path.exists(local_folder)
-            print(local_folder)
-            print(is_folder)
+            #print(local_folder)
+            #print(is_folder)
             if is_folder== False:
                 os.makedirs(local_folder)
             t = threading.Thread(target=download_now,args=(t_url,file_url))
@@ -113,9 +113,50 @@ def downloads_daily(codeList,save_url,load_url,date_from,date_to,folder):
     for task in task_threads:
         task.join()  #等待所有线程结束  
         
-codeList = ["sz300474"]
-load_url = "http://market.finance.sina.com.cn/downxls.php?date=#d#&symbol=#c#"
-folder = "E:\\Cloud\\finance\\lianghua\\F4838\\data\\#c#\\"
-save_url = "E:\\Cloud\\finance\\lianghua\\F4838\\data\\#c#\\#d#.csv"  
-downloads_daily(codeList,save_url,load_url,"2016-6-15","2016-6-21",folder)  
+        
+d_load_url = "http://market.finance.sina.com.cn/downxls.php?date=#d#&symbol=#c#"
+d_save_url = "E:\\python\\F4838\\data\\all_temp\\#c#___#d#.csv" 
+class download(threading.Thread):
+     def __init__(self,que):  
+        threading.Thread.__init__(self)  
+        self.que=que  
+     def run(self):  
+        while True:  
+            if not self.que.empty():  
+                print('-----%s------'%(self.name))  
+                code = self.que.get().split("&&")[0]
+                code_date = self.que.get().split("&&")[1]
+                t_url = d_load_url.replace("#c#",code).replace("#d#",code_date)
+                file_url = d_save_url.replace("#c#",code).replace("#d#",code_date)
+                download_now(t_url,file_url)
+                #os.system('wget '+self.que.get())  
+            else:  
+                break  
+#下载当天的数据
+                
+  
+def downloads_daily_single(codeList,save_url,load_url,date_from,date_to,folder):
+    count = 1
+    que=queue.Queue()
+    d1 =  datetime.datetime.strptime(date_from, '%Y-%m-%d')
+    d2 =  datetime.datetime.strptime(date_to, '%Y-%m-%d')
+    deld = d2 -d1
+    d = 0;
+    for code in codeList:
+        #print(code)
+        #print(folder)
+        ddeld = datetime.timedelta(days=0)
+        one_day = d1 + ddeld
+        code_date = one_day.strftime("%Y-%m-%d")
+        #print(code_date)
+        que.put(code+"&&"+code_date)
+    for task in range(100):
+        d = download(que)
+        d.start()
+
+#codeList = ["sz300474"]
+#
+#folder = "E:\\Cloud\\finance\\lianghua\\F4838\\data\\#c#\\"
+#save_url = "E:\\Cloud\\finance\\lianghua\\F4838\\data\\#c#\\#d#.csv"  
+#downloads_daily(codeList,save_url,load_url,"2016-6-15","2016-6-21",folder)  
     
