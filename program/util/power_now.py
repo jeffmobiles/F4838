@@ -13,6 +13,7 @@ import matplotlib #only needed to determine Matplotlib version number
 import os
 
 folder = "E:\\python\\F4838\\data\\all_temp\\"
+#folder = "E:\\python\\F4838\\data\\sh600399\\"
 filelist = os.listdir(folder)
 print(filelist)
 
@@ -54,6 +55,7 @@ for file in filelist:
             p_index = p_index + 1
         small_bill_cha = small_bill_buy - small_bill_sell           
         small_rate = (small_bill_buy + small_bill_sell )/p_all_vol
-        #print (small_bill_cha)           
-        print (file,str(power) + "\t"+ str(p_index) + "\t"+str(small_bill_cha) +"\t"+str(small_rate))
+        #print (small_bill_cha)  
+        if power > 0 and small_bill_cha < 0:         
+            print (file,str(power) + "\t"+ str(p_index) + "\t"+str(small_bill_cha) +"\t"+str(small_rate))
         

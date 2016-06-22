@@ -90,7 +90,7 @@ def downloads_daily(codeList,save_url,load_url,date_from,date_to,folder):
     deld = d2 -d1
     d = 0;
     for code in codeList:
-        print(code)
+        #print(code)
         #print(folder)
         while d < deld.days+1:
             ddeld = datetime.timedelta(days=d)
@@ -100,8 +100,9 @@ def downloads_daily(codeList,save_url,load_url,date_from,date_to,folder):
             file_url = save_url.replace("#c#",code).replace("#d#",code_date)
             local_folder = folder.replace("#c#",code)
             is_folder = os.path.exists(local_folder)
-            #print(local_folder)
-            #print(is_folder)
+            print(is_folder)
+            print(file_url)
+            print(t_url)
             if is_folder== False:
                 os.makedirs(local_folder)
             t = threading.Thread(target=download_now,args=(t_url,file_url))
@@ -154,9 +155,9 @@ def downloads_daily_single(codeList,save_url,load_url,date_from,date_to,folder):
         d = download(que)
         d.start()
 
-#codeList = ["sz300474"]
-#
-#folder = "E:\\Cloud\\finance\\lianghua\\F4838\\data\\#c#\\"
-#save_url = "E:\\Cloud\\finance\\lianghua\\F4838\\data\\#c#\\#d#.csv"  
-#downloads_daily(codeList,save_url,load_url,"2016-6-15","2016-6-21",folder)  
+codeList = ["sh600399"]
+load_url = "http://market.finance.sina.com.cn/downxls.php?date=#d#&symbol=#c#"
+folder = "E:\\python\\F4838\\data\\#c#\\"
+save_url = "E:\\python\\F4838\\data\\#c#\\#d#.csv"  
+downloads_daily(codeList,save_url,load_url,"2016-6-15","2016-6-22",folder)  
     
