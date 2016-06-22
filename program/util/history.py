@@ -150,7 +150,7 @@ def downloads_daily_single(codeList,save_url,load_url,date_from,date_to,folder):
         code_date = one_day.strftime("%Y-%m-%d")
         #print(code_date)
         que.put(code+"&&"+code_date)
-    for task in range(100):
+    for task in range(5):
         d = download(que)
         d.start()
 
