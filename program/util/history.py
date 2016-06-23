@@ -81,7 +81,7 @@ def downloads_now(codeList,save_url,load_url,now,folder):
         task.join()  #等待所有线程结束
 
       
-# 历史成交明细  
+# 历史成交明细  下载多个
 def downloads_daily(codeList,save_url,load_url,date_from,date_to,folder):
     task_threads = [] #存储线程
     count = 1
@@ -151,13 +151,13 @@ def downloads_daily_single(codeList,save_url,load_url,date_from,date_to,folder):
         code_date = one_day.strftime("%Y-%m-%d")
         #print(code_date)
         que.put(code+"&&"+code_date)
-    for task in range(5):
+    for task in range(8):
         d = download(que)
         d.start()
 
-codeList = ["sh600399"]
-load_url = "http://market.finance.sina.com.cn/downxls.php?date=#d#&symbol=#c#"
-folder = "E:\\python\\F4838\\data\\#c#\\"
-save_url = "E:\\python\\F4838\\data\\#c#\\#d#.csv"  
-downloads_daily(codeList,save_url,load_url,"2016-6-15","2016-6-22",folder)  
+#codeList = ["sz002405"]
+#load_url = "http://market.finance.sina.com.cn/downxls.php?date=#d#&symbol=#c#"
+#folder = "E:\\python\\F4838\\data\\#c#\\"
+#save_url = "E:\\python\\F4838\\data\\#c#\\#d#.csv"  
+#downloads_daily(codeList,save_url,load_url,"2016-6-20","2016-6-22",folder)  
     

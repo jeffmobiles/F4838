@@ -13,7 +13,7 @@ import matplotlib #only needed to determine Matplotlib version number
 import os
 
 folder = "E:\\python\\F4838\\data\\all_temp\\"
-#folder = "E:\\python\\F4838\\data\\sz002405\\"
+#folder = "E:\\python\\F4838\\data\\sh600399\\"
 filelist = os.listdir(folder)
 print(filelist)
 
@@ -27,6 +27,12 @@ for file in filelist:
     small_bill_cha = 0;
     p_index = 0;
     p_all_vol = 0;
+    
+    # 4个区间价格
+    m_b=0
+    m_e=0
+    a_b=0
+    a_e=0
     if (df.size > 10):
         for index,row in df.iterrows():
             v_date = row['成交时间']
@@ -45,7 +51,6 @@ for file in filelist:
             if open_date != "0925":
                 power +=this_power
                 
-           #2------------小单差--------------------    
             if v_amount <= 40000 :
                 if v_type == "买盘" :
                    small_bill_buy +=v_vol
@@ -53,9 +58,20 @@ for file in filelist:
                    small_bill_sell +=v_vol
            #3------------总笔数--------------------
             p_index = p_index + 1
+            #4-------------4个区价格
+            cj_date = v_date.split(":")[0]+v_date.split(":")[1]+v_date.split(":")[2];
+            #print(cj_date)
+            if open_date == "0925":
+               m_b = v_price
+            if open_date == "1130":
+                m_e = v_price
+            if open_date == "1300":
+                a_b = v_price
+            if open_date == "1500":
+                a_e = v_price
         small_bill_cha = small_bill_buy - small_bill_sell           
         small_rate = (small_bill_buy + small_bill_sell )/p_all_vol
         #print (small_bill_cha)  
-        if power > 0 and small_bill_cha < 0:         
-            print (file,str(power) + "\t"+ str(p_index) + "\t"+str(small_bill_cha) +"\t"+str(small_rate))
+        #if power > 0 :         
+        print (file,str(power) + "\t"+ str(p_index) + "\t"+ str(small_bill_cha) + "\t"+str(small_bill_buy)+"\t ["+str(m_b)+","+str(m_e)+","+str(a_b)+","+str(a_e)+"]") 
         

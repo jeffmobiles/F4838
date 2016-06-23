@@ -43,6 +43,7 @@ pool = ["600007","600012","600056","600058","600059","600062","600067","600069",
 
 
 codeList = []
+print(pool.count)
 for p in pool :
     if p.startswith("6"):
         codeList.append("sh"+p)
@@ -53,4 +54,4 @@ load_url = "http://market.finance.sina.com.cn/downxls.php?date=#d#&symbol=#c#"
 folder = "E:\\python\\F4838\\data\\all_temp\\"
 save_url = "E:\\python\\F4838\\data\\all_temp\\#c#___#d#.csv"  
 
-downloads_daily_single(codeList,save_url,load_url,"2016-6-22","2016-6-22",folder) 
+downloads_daily_single(codeList,save_url,load_url,"2016-6-23","2016-6-23",folder) 
