@@ -72,6 +72,6 @@ for file in filelist:
         small_bill_cha = small_bill_buy - small_bill_sell           
         small_rate = (small_bill_buy + small_bill_sell )/p_all_vol
         #print (small_bill_cha)  
-        #if power > 0 :         
-        print (file,str(power) + "\t"+ str(p_index) + "\t"+ str(small_bill_cha) + "\t"+str(small_bill_buy)+"\t ["+str(m_b)+","+str(m_e)+","+str(a_b)+","+str(a_e)+"]") 
+        if power > 0 :         
+            print (file,str(power) + "\t"+ str(p_index) + "\t"+ str(small_bill_cha) + "\t"+str(small_bill_buy)+"\t ["+str(m_b)+","+str(m_e)+","+str(a_b)+","+str(a_e)+"]") 
         

@@ -155,9 +155,9 @@ def downloads_daily_single(codeList,save_url,load_url,date_from,date_to,folder):
         d = download(que)
         d.start()
 
-#codeList = ["sz002405"]
-#load_url = "http://market.finance.sina.com.cn/downxls.php?date=#d#&symbol=#c#"
-#folder = "E:\\python\\F4838\\data\\#c#\\"
-#save_url = "E:\\python\\F4838\\data\\#c#\\#d#.csv"  
-#downloads_daily(codeList,save_url,load_url,"2016-6-20","2016-6-22",folder)  
+codeList = ["sz002133"]
+load_url = "http://market.finance.sina.com.cn/downxls.php?date=#d#&symbol=#c#"
+folder = "E:\\python\\F4838\\data\\#c#\\"
+save_url = "E:\\python\\F4838\\data\\#c#\\#d#.csv"  
+downloads_daily(codeList,save_url,load_url,"2016-6-20","2016-6-22",folder)  
     
